@@ -22,7 +22,8 @@ $.ajax({
 		data: uberParams,
 		accept: 'application/json',
 		headers: {
-				'Authorization': 'Token' + uberParams['server_token'],
+			'Authorization': 'Token' + uberParams['server_token'],
+			'Access-Control-Allow-Origin': uberURL
 		},
 		success: function(data) {
 			console.log(data);
