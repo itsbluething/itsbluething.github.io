@@ -23,16 +23,55 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-offset-2 col-md-2">
-			<input type="text" class="form-control" placeholder="Latitude">
-		</div>
-		<div class="col-md-2">
-			<input type="text" class="form-control" placeholder="Longitude">
+			<h3>Current Location</h3>
+		</div>	
+		<div class="col-md-offset-2 col-md-2">
+			<h3>Destination</h3>
+		</div>	
+	</div>
+	<div class="row">
+		<div class="col-md-4 col-md-offset-2">
+			<input type="text" class="form-control" placeholder="Address">
 		</div>
 		<div class="col-md-4">
 			<input type="text" class="form-control" placeholder="Address">
 		</div>
 	</div>
 	<br>
+
+	<div class="row">
+		<div class="col-md-offset-2 col-md-8">
+			<a class="btn btn-primary" style="border-bottom: 5px;" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+				I want to use coordinates instead
+			</a>
+			<div class="collapse" id="collapseExample">
+				<div class="well" style="margin-top:20px;padding-top:5px;padding-bottom:5px;">
+					<div class="row" style="padding-left:10px;">
+						<h4>Current Location</h4>
+					</div>
+					<div class="row" style="padding:5px;">
+						<div class="col-md-2">
+							<input type="text" class="form-control" placeholder="Latitude">
+						</div>
+						<div class="col-md-2">
+							<input type="text" class="form-control" placeholder="Longitude">
+						</div>				
+					</div>
+					<div class="row" style="padding-left:10px;">
+						<h4>Destination</h4>
+					</div>
+					<div class="row" style="padding:5px;">
+						<div class="col-md-2">
+							<input type="text" class="form-control" placeholder="Latitude">
+						</div>
+						<div class="col-md-2">
+							<input type="text" class="form-control" placeholder="Longitude">
+						</div>				
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>
 	<div class="row">
 		<div class="col text-center">
 			<a class="btn btn-info" href="#">Compare</a>
