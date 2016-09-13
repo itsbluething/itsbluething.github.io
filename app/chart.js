@@ -47,7 +47,7 @@ $.ajax({
     dataType: 'json',
     data: {},
     headers: {
-        Authorization: 'Bearer ' + lyftToken;
+        Authorization: 'Bearer ' + lyftToken
     },
     success: function (){
         console.log(arguments)
