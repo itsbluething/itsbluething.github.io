@@ -13,7 +13,8 @@ var lyftParams = {
 	client_secret: '_a9Q8Y7ShAbbYS57KyKp82f3MSdGktZ7',
 	client_token: 'gAAAAABX1NuTTuZDBg6WsgPFyY7EQntA119tR-l5cwMXQ885TBYXTjZ0__76QC9fCbXN0A_EiIE6DFuCSFl4K9kdn7MoUuIg7FCDSbelnjMPSBy64vTXWL_BSHkSwJmQ8n-VPn95uyFT4BKRUhx6BnPQt8Ht2zcvODbVGiPVT3UXCiqDurQjjXw='
 };
-var lyftData = []
+var lyftData = {}
+var lyftToken;
 
 $.ajax({
 		url: uberURL + '/v1/products',
@@ -29,14 +30,52 @@ $.ajax({
 		}
 		});
 
+$.ajax({
+    type: "POST",
+    url: "https://api.lyft.com/oauth/token",
+    dataType: 'json',
+    data: {grant_type: "client_credentials", scope: "public"},
+    username: lyftParams['client_id'],
+    password: lyftParams['client_secret'],
+    success: function (){
+        lyftToken = data['access_token'];
+    }
+});
+$.ajax({
+    type: "GET",
+    url: 'https://api.lyft.com/v1/eta?lat=37.7833&lng=-122.4167',
+    dataType: 'json',
+    data: {},
+    headers: {
+        Authorization: 'Bearer ' + lyftToken;
+    },
+    success: function (){
+        console.log(arguments)
+    }
+});
+
+function getLyftData(data) {
+	lyftStats = data.cost_estimates;
+	for (i = 0; i < lyftStats.length; i ++) {
+		if (lyftStats[i].ride_type == "lyft") {
+			lyftStats = lyftStats[i].ride_type;
+		}
+	}
+	if (lyftStats[i] == data.cost_estimates) {
+		console.log(error);
+		return;
+	}
+	lyftData = lyftStats;
+}
+
 var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["Ride Time", "Price", "Price per mile"],
+        labels: ["Ride Time", "Distance", "Price", "Price per mile"],
         datasets: [{
             label: 'Lyft',
-            data: lyftData,
+            data: [lyftData.estimated_duration_seconds, lyftData.estimated_duration_miles, lyftData.estimated_cost_cents_max, lyftData.estimated_cost_cents_min],
             backgroundColor: [
                 'rgba(255, 0, 191, 0.2)',
                 'rgba(255, 0, 191, 0.2)',

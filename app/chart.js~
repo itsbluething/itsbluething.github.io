@@ -14,6 +14,7 @@ var lyftParams = {
 	client_token: 'gAAAAABX1NuTTuZDBg6WsgPFyY7EQntA119tR-l5cwMXQ885TBYXTjZ0__76QC9fCbXN0A_EiIE6DFuCSFl4K9kdn7MoUuIg7FCDSbelnjMPSBy64vTXWL_BSHkSwJmQ8n-VPn95uyFT4BKRUhx6BnPQt8Ht2zcvODbVGiPVT3UXCiqDurQjjXw='
 };
 var lyftData = []
+var lyftToken;
 
 $.ajax({
 		url: uberURL + '/v1/products',
@@ -23,12 +24,35 @@ $.ajax({
 		accept: 'application/json',
 		headers: {
 			'Authorization': 'Token' + uberParams['server_token'],
-			'Access-Control-Allow-Origin': uberURL
 		},
 		success: function(data) {
 			console.log(data);
 		}
 		});
+
+$.ajax({
+    type: "POST",
+    url: "https://api.lyft.com/oauth/token",
+    dataType: 'json',
+    data: {grant_type: "client_credentials", scope: "public"},
+    username: lyftParams['client_id'],
+    password: lyftParams['client_secret'],
+    success: function (){
+        lyftToken = data['access_token'];
+    }
+});
+$.ajax({
+    type: "GET",
+    url: 'https://api.lyft.com/v1/eta?lat=37.7833&lng=-122.4167',
+    dataType: 'json',
+    data: {},
+    headers: {
+        Authorization: 'Bearer <access_token>'
+    },
+    success: function (){
+        console.log(arguments)
+    }
+});
 
 var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {
